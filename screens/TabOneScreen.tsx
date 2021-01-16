@@ -1,32 +1,35 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { Text, View } from '../components/Themed';
+import BarGraph from '../components/BarGraph/BarGraph';
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
+    <LinearGradient
+      colors={['#282828', '#121212']}
+      style={styles.linearGradient}
+    >
+      <Text style={styles.title}>This is too easy?</Text>
+      <View>
+        <Text>Hello</Text>
+        <BarGraph />
+      </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  linearGradient: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
+    color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
   },
 });
