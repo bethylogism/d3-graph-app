@@ -1,26 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import ART from '@react-native-community/art';
+import { Surface, Group, Text, Shape } from '@react-native-community/art';
 
 import { scaleBand } from 'd3-scale';
 import moment from 'moment';
 
-const { Surface, Group, Text, Shape } = ART;
 import layout from '../../constants/Layout';
-
-const generateValues = () => {
-  let days: string[] = [];
-  Array(7)
-    .fill()
-    .map((el, i) => days.push(moment().subtract(i, 'days').format('ddd')));
-
-  console.log(days);
-  let days2 = Array(7)
-    .fill()
-    .map((el, i) => (el = moment().subtract(i, 'days').format('ddd')));
-
-  console.log(days2);
-};
 
 type AxesProps = {
   width: number;
@@ -48,16 +33,17 @@ type BarGraphProps = {
   color: string;
 };
 
-let graphWidth = layout.window.width - 10;
-
 export function BarGraph({ data, color }: BarGraphProps) {
+  let graphWidth = layout.window.width - 10;
+  const xAxisHeight = 30;
+  const yAxisHeight = 325;
   console.log('HELLO');
-  generateValues();
+
   return (
     <View style={styles.main}>
-      <YAxis height={325} width={graphWidth} />
+      <YAxis height={yAxisHeight} width={graphWidth} />
       <Columns data={data} width={graphWidth} height={315} color={color} />
-      <XAxis height={30} width={graphWidth} />
+      <XAxis height={xAxisHeight} width={graphWidth} />
     </View>
   );
 }
