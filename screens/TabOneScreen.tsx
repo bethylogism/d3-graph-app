@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { Text, View } from '../components/Themed';
 import BarGraph from '../components/BarGraph/BarGraph';
+import moment from 'moment';
 
 type Rating = {
   rating: number;
@@ -13,7 +14,7 @@ type Rating = {
 
 const generateValues = () => {
   const days = Array(7)
-    .fill()
+    .fill('day')
     .map((el, i) => (el = moment().subtract(i, 'days').format('ddd')));
 
   console.log(days);

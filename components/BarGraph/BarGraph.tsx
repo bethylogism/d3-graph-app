@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { Surface, Group, Text, Shape } from '@react-native-community/art';
-
-import { scaleBand } from 'd3-scale';
-import moment from 'moment';
+import { StyleSheet, View } from 'react-native';
+import { StackedBarChart } from 'react-native-svg-charts';
 
 import layout from '../../constants/Layout';
 
@@ -11,17 +8,6 @@ type AxesProps = {
   width: number;
   height: number;
 };
-function XAxis({ width, height }: AxesProps) {
-  return <Surface width={width} height={height}></Surface>;
-}
-
-function YAxis({ width, height }: AxesProps) {
-  return <Surface width={width} height={height}></Surface>;
-}
-
-function Columns({ width, height, data, color }: AxesProps & BarGraphProps) {
-  return <Surface width={width} height={height}></Surface>;
-}
 
 type Rating = {
   rating: number;
@@ -39,11 +25,12 @@ export function BarGraph({ data, color }: BarGraphProps) {
   const yAxisHeight = 325;
   console.log('HELLO');
 
+  const keys: readonly ('rating' | 'column')[] = ['rating', 'column'];
+  const colors = ['cornflowerblue', 'fuchsia'];
+
   return (
     <View style={styles.main}>
-      <YAxis height={yAxisHeight} width={graphWidth} />
-      <Columns data={data} width={graphWidth} height={315} color={color} />
-      <XAxis height={xAxisHeight} width={graphWidth} />
+      <StackedBarChart keys={keys} data={data} colors={colors} />
     </View>
   );
 }
