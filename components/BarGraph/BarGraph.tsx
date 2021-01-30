@@ -1,44 +1,87 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { StackedBarChart } from 'react-native-svg-charts';
+import { StyleSheet, View, Text } from 'react-native';
+// import { Text, View } from "../../components/Themed";
+import { Grid, StackedBarChart, XAxis, YAxis } from 'react-native-svg-charts';
+import moment from 'moment';
 
 import layout from '../../constants/Layout';
-
-type AxesProps = {
-  width: number;
-  height: number;
-};
-
-type Rating = {
-  rating: number;
-  column: number;
-};
+import { ColorName, Scores } from '../../screens/TabOneScreen';
 
 type BarGraphProps = {
-  data: Rating[];
-  color: string;
+  data: Scores[];
+  caption: string;
 };
 
-export function BarGraph({ data, color }: BarGraphProps) {
-  let graphWidth = layout.window.width - 10;
-  const xAxisHeight = 30;
-  const yAxisHeight = 325;
-  console.log('HELLO');
+const graphWidth = layout.window.width - 20;
+const graphHeight = 325;
+const xAxisHeight = 30;
+const yAxisHeight = 325;
 
-  const keys: readonly ('rating' | 'column')[] = ['rating', 'column'];
-  const colors = ['cornflowerblue', 'fuchsia'];
+export function BarGraph({ data, caption }: BarGraphProps) {
+  const days = data.map(({ date }) => moment(date).format('ddd'));
+  const dateNums = data.map(({ date }) => moment(date).format('D'));
+
+  const generateXAxisValues = (idx: number): string => {
+    return `${days[idx]} ${dateNums[idx]}`;
+  };
+
+  const keys: readonly ('teamA' | 'teamB')[] = ['teamA', 'teamB'];
+  const colors: ColorName[] = ['cornflowerblue', 'fuchsia'];
+
+  const axesSvg = { fontSize: 10, fill: 'grey' };
 
   return (
-    <View style={styles.main}>
-      <StackedBarChart keys={keys} data={data} colors={colors} />
+    <View style={styles.container}>
+      <YAxis
+        data={data}
+        numberOfTicks={10}
+        contentInset={{ top: 60, bottom: 20 }}
+        style={{ marginBottom: xAxisHeight, marginLeft: 10 }}
+        svg={{ fontSize: 10, fill: 'grey' }}
+        min={0}
+        max={10}
+      />
+      <View style={styles.chart}>
+        <Text style={styles.caption}>{caption}</Text>
+        <StackedBarChart
+          style={{ height: graphHeight, flex: 1 }}
+          keys={keys}
+          data={data}
+          colors={colors}
+          contentInset={{ top: 20, bottom: 12 }}
+        >
+          <Grid />
+        </StackedBarChart>
+        <XAxis
+          data={data}
+          style={{ height: xAxisHeight }}
+          svg={{ fontSize: 10, fill: 'grey' }}
+          numberOfTicks={data.length}
+          contentInset={{ left: 30, right: 30 }}
+          formatLabel={generateXAxisValues}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
-    marginVertical: 25,
-    marginHorizontal: 0,
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+  },
+  chart: {
+    flex: 1,
+    width: graphWidth,
+    backgroundColor: 'transparent',
+    marginLeft: 10,
+    paddingVertical: 16,
+    // flexDirection: "row",
+    // height: graphHeight,
+  },
+  caption: {
+    color: 'white', // use system styles / set default to dark
   },
 });
 
