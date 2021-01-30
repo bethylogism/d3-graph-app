@@ -8,26 +8,17 @@ import useColorScheme from './hooks/useColorScheme';
 import TopBar from './components/TopBar';
 import Navigation from './navigation';
 
-const data = [
-  { rating: 4, column: 0 },
-  { rating: 7, column: 1 },
-  { rating: 6, column: 2 },
-  { rating: 7, column: 3 },
-  { rating: 8, column: 4 },
-  { rating: 5, column: 5 },
-  { rating: 8, column: 6 },
-];
-
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
+  const colorScheme = 'dark';
 
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <SafeAreaProvider>
-        <TopBar />
+        {/* <TopBar /> */}
         <Navigation colorScheme={colorScheme} />
         <StatusBar
           barStyle="light-content"

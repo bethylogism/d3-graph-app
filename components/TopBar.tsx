@@ -1,17 +1,38 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View as NativeView } from 'react-native';
 
-import { View } from './Themed';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text } from './Themed';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { ColorKey, TeamNames } from '../screens/TabOneScreen';
 
-export default function TopBar() {
+// type TopBarProps = {
+//   name: keyof ColorKey;
+//   color: Pick<ColorKey, keyof ColorKey>;
+// }[];
+
+type TopBarProps = {
+  names: TeamNames;
+  colors: ColorKey;
+};
+
+export default function TopBar({ names, colors }: TopBarProps) {
+  const teamKeys = Object.keys(names).filter(
+    (key) => !Object.keys(colors).includes(key)
+  );
+
   return (
     <View style={styles.topbar}>
       <View style={styles.inner}>
         <FontAwesomeIcon style={styles.hamburger} icon={faBars} />
-        <View style={styles.avatar} />
+        <View
+          style={{ ...styles.avatar, backgroundColor: `${colors['teamA']}` }}
+        />
+        <Text style={styles.keyText}>{names['teamA']}</Text>
+        <View
+          style={{ ...styles.avatar, backgroundColor: `${colors['teamB']}` }}
+        />
+        <Text style={styles.keyText}>{names['teamB']}</Text>
       </View>
     </View>
   );
@@ -29,13 +50,17 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingHorizontal: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#121212',
+  },
+  keyText: {
+    color: 'gray',
+    marginHorizontal: 5,
   },
   hamburger: {
     padding: 10,
     color: '#fff',
+    marginRight: 15,
   },
   avatar: {
     borderRadius: 100,
@@ -43,5 +68,6 @@ const styles = StyleSheet.create({
     height: 25,
     borderColor: '#fff',
     borderWidth: 1,
+    marginHorizontal: 5,
   },
 });
