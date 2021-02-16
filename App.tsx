@@ -9,17 +9,18 @@ import TopBar from './components/TopBar';
 import Navigation from './navigation';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
+  const { isLoadingComplete, data } = useCachedResources();
   // const colorScheme = useColorScheme();
   const colorScheme = 'dark';
 
   if (!isLoadingComplete) {
     return null;
   } else {
+    console.log({ data });
     return (
       <SafeAreaProvider>
-        {/* <TopBar /> */}
         <Navigation colorScheme={colorScheme} />
+
         <StatusBar
           barStyle="light-content"
           hidden={false}

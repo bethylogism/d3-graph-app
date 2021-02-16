@@ -6,6 +6,7 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
+import TabTwoHorizontalScreen from '../screens/TabTwoHorizontalScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
@@ -16,11 +17,11 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Teams Overview"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
     >
       <BottomTab.Screen
-        name="TabOne"
+        name="Teams Overview"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -29,7 +30,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Weekly"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -55,7 +56,7 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
+        name="Teams Overview"
         component={TabOneScreen}
         options={{ headerTitle: "All teams' scores" }}
       />
@@ -69,9 +70,14 @@ function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="TabTwoScreen"
+        name="Weekly"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Progress over time' }}
+        options={{ headerTitle: 'Weekly progress' }}
+      />
+      <TabTwoStack.Screen
+        name="Horizontal scroll"
+        component={TabTwoHorizontalScreen}
+        options={{ headerTitle: 'Scroll left to see history' }}
       />
     </TabTwoStack.Navigator>
   );

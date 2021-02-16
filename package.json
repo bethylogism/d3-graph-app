@@ -49,9 +49,20 @@
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@types/react-native-svg-charts": "^5.0.6",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "jest-expo": "~40.0.0",
     "prettier": "2.2.1",
     "typescript": "~4.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:react-hooks/recommended",
+      "prettier/@typescript-eslint",
+      "prettier/react",
+      "prettier"
+    ]
   },
   "private": true
 }

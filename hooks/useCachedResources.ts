@@ -5,6 +5,7 @@ import * as React from 'react';
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
+  const [data, setData] = React.useState();
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -17,6 +18,13 @@ export default function useCachedResources() {
           ...Ionicons.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
         });
+
+        await fetch(`http://127.0.0.1:8080/projects`, { method: 'GET' })
+          .then((data) => data.json())
+          .then(setData)
+          .catch((e) => {
+            console.log('failing in the fetch with: ', e);
+          });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
@@ -29,5 +37,5 @@ export default function useCachedResources() {
     loadResourcesAndDataAsync();
   }, []);
 
-  return isLoadingComplete;
+  return { isLoadingComplete, data };
 }

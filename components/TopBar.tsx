@@ -45,10 +45,7 @@ const styles = StyleSheet.create({
     height: 68,
   },
   inner: {
-    marginTop: 25,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingHorizontal: 15,
+    padding: 15,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#121212',
